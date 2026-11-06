@@ -1,0 +1,78 @@
+table,column,action,rows_affected
+customers,(row),removed completely empty rows,10
+customers,(row),removed header row repeated mid-file,1
+customers,(row),removed footer line,1
+customers,(row),removed test/dummy records,6
+customers,(row),removed exact duplicate rows,60
+customers,customer_id,dropped rows with missing customer ID,9
+customers,full_name,"fixed 'Last, First' order",143
+customers,full_name,removed titles/digits/extra spaces and fixed casing,725
+customers,phone,converted phones to +<country code><number>,2769
+customers,phone,set junk phone values to missing,154
+customers,date_of_birth,fixed two-digit years read in the wrong century,73
+customers,date_of_birth,set dummy dates (1900-01-01 / 1970-01-01) to missing,24
+customers,date_of_birth,"set impossible ages (future, <18, >100) to missing",86
+customers,date_of_birth,unparseable dates set to missing,0
+customers,signup_date,set out-of-range signup dates to missing,0
+customers,marketing_opt_in,set to False where notes say DO NOT CONTACT,44
+customers,annual_income_usd,converted IDR incomes to USD,89
+customers,annual_income_usd,set negative incomes to missing,26
+customers,annual_income_usd,"set implausible incomes (> 1,000,000) to missing",28
+customers,customer_id,same person found under a second customer ID (merged),115
+properties,property_id,standardized ID format,36
+properties,property_name,fixed mojibake characters,4
+properties,region,standardized/filled region from city,40
+properties,star_rating,set out-of-range star ratings to missing,12
+properties,rate_currency,filled missing currency from country,16
+properties,nightly_rate,fixed negative rates (sign error),4
+properties,nightly_rate,set zero rates to missing,0
+properties,nightly_rate,divided extra-zero outliers by 10,5
+properties,nightly_rate,set unfixable outliers to missing,0
+properties,latitude/longitude,"set 0,0 coordinates to missing",1
+properties,latitude/longitude,fixed swapped latitude/longitude,4
+properties,latitude/longitude,fixed flipped latitude sign,2
+properties,latitude/longitude,set coordinates far from their city to missing,0
+properties,total_rooms,set negative or impossible room counts to missing,2
+properties,guest_score,set zero or out-of-range scores to missing,6
+properties,year_opened,set future years to missing,4
+properties,contact_email,set invalid emails to missing,9
+properties,year_opened,set future years to missing,0
+properties,contact_email,set invalid emails to missing,0
+properties,description,"removed HTML tags/entities, line breaks and lorem ipsum",7
+properties,(row),removed duplicate property listings,20
+properties,property_id,different properties sharing one ID (second one renamed with -B),2
+bookings,(row),removed exact duplicate rows,179
+bookings,(row),removed test bookings,15
+bookings,booking_id,standardized booking ID format,58
+bookings,booking_id,missing booking IDs replaced with BK-UNKNOWN-xxxx,42
+bookings,customer_id,re-linked bookings from duplicate IDs to master customer ID,210
+bookings,customer_id,customer ID missing or not found in customers table (flagged),356
+bookings,property_id,property ID not found in properties table (flagged),286
+bookings,guests,"set impossible guest counts (0, negative, 40, 99) to missing",59
+bookings,check_in/check_out,resolved ambiguous day/month order using nights,36
+bookings,check_in/check_out,set impossible years to missing,24
+bookings,check_in/check_out,"unparseable dates (e.g. 2023-02-30, TBD) left missing",279
+bookings,check_in/check_out,swapped check_in and check_out (check_out was earlier),104
+bookings,check_in/check_out,filled one missing date using the other date and nights,313
+bookings,nights,nights column did not match dates (replaced by date difference),395
+bookings,booked_at,"converted UTC timestamps to local time (WIB, +7 hours)",1760
+bookings,booked_at,set booking dates after check-in to missing,1
+bookings,currency,currency column contradicted the symbol in the amount (symbol used),382
+bookings,currency,missing currency filled from amount symbol or property,233
+bookings,total_amount,fixed negative amounts (sign error),37
+bookings,total_amount,set zero amounts to missing,50
+bookings,currency,amount tagged USD but clearly in local currency (relabelled),15
+bookings,currency,amount tagged local currency but clearly USD (relabelled),13
+bookings,total_amount,divided extra-zero outliers by 100,63
+bookings,total_amount,set unfixable outliers to missing,0
+bookings,amount_usd,imputed missing amounts from the same property and room type,167
+bookings,discount_pct,filled missing discount from promo code,75
+bookings,discount_pct,fixed discount that conflicted with promo code,88
+bookings,status,inferred missing status from other columns,119
+bookings,cancel_date,removed cancel date on non-cancelled bookings,119
+bookings,cancel_date,set cancel dates after check-in to missing,35
+bookings,guest_rating,converted 10-point ratings to 5-point (divided by 2),66
+bookings,guest_rating,set zero ratings to missing,89
+bookings,guest_rating,removed ratings on bookings that were not completed,35
+bookings,review,removed reviews on bookings that were not completed,17
+bookings,(row),removed near-duplicate bookings (re-submitted with a new ID),241
