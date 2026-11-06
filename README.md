@@ -46,26 +46,39 @@ Every cleaning step is recorded in `cleaned/cleaning_log.csv` (77 logged steps),
 ---
 ### Key Insights
 
-| Business question | Raw data (naive) | Clean data |
+What messy data does to analysis:
+
+| Business question | Raw data | Clean data |
 |---|---:|---:|
 | Number of bookings | 12,435 | 12,000 |
 | Unique customers | 3,707 | 2,802 |
-| Sales channels | 48 labels | 9 channels (+ Unknown) |
+| Sales channels | 48 labels | 9 channels |
 | Cancellation rate | 9.31% | 13.36% |
 | Completed revenue (USD) | 9,744,690,051 | 3,867,041 |
 | Average completed booking (USD) | 6,847,990 | 423 |
+
+- **Cancellations were underestimated by about 30%.** The raw data only counted the exact label `Cancelled`, missing variants like `canceled` and `CANCELLED`.
+- **Naive revenue was off by a factor of about 2,500.** Summing raw amounts mixes Rupiah, Yen, Dollars and other currencies, plus amounts with extra zeros.
+- **Customer counts were inflated by about 32%** because of inconsistent ID formats and people registered twice.
+- **Duplicates inflated bookings by 435 rows:** exact copies from overlapping exports and near-duplicates re-submitted with a new booking ID.
 
 ---
 ## 🗂️ Project Structure
 
 ```
-Travel-and-Tourism-Dataset-Cleaning/
+Travel-and-Tourism-Massive-Dataset-Cleaning/
 ├── bookings_raw.csv                         # raw bookings data
 ├── customers_raw.csv                        # raw customers data
 ├── properties_raw.csv                       # raw properties data
-├── Travel_and_Tourism_Data_Cleaning.ipynb   # full cleaning notebook
+├── Travel_and_Tourism_Massive_Data_Cleaning.ipynb   # full cleaning notebook
 ├── README.md
-
+├── data_cleaned/
+│   ├── bookings_clean.csv
+│   ├── customers_clean.csv
+│   ├── properties_clean.csv
+│   ├── customer_id_map.csv                  # old customer ID → master ID
+│   ├── property_id_map.csv                  # old property ID → master ID 
+│   ├── cleaning_log.csv                     # every cleaning step and rows affected
 ```
 
 ---
